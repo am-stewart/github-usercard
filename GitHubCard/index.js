@@ -5,7 +5,15 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
 axios.get('https://api.github.com/users/am-stewart')
+  .then(resp => {
+    const user = userCardMaker(resp.data);
+    document.querySelector('.cards').appendChild(user);
+  }).catch(error => {
+    console.log(error);
+  })
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -52,7 +60,8 @@ const followersArray = [];
     </div>
 */
 function userCardMaker(obj) {
-
+// console.log(obj)
+  //create elements
   const userCard = document.createElement('div')
   const userImage = document.createElement('img')
   const cardInfo = document.createElement('div')
@@ -65,12 +74,24 @@ function userCardMaker(obj) {
   const following = document.createElement('p')
   const bio = document.createElement('p')
 
+  //assign class names
   userCard.classList.add('card')
-  //do something with user image?
   cardInfo.classList.add('card-info')
   name.classList.add('name')
   userName.classList.add('username')
 
+  //text content
+  userImage.src = obj.avatar_url
+  name.textContent = obj.name
+  userName.textContent = obj.login
+  location.textContent = obj.location
+  profile.textContent = 'Profile: '
+  userLink.textContent = obj.html_url
+  followers.textContent = obj.followers
+  following.textContent = obj.following
+  bio.textContent = obj.bio
+
+  //hierarchy
   userCard.appendChild(userImage)
   userCard.appendChild(cardInfo)
   cardInfo.appendChild(name)
@@ -84,7 +105,8 @@ function userCardMaker(obj) {
 
 return userCard
 }
-console.log(userCardMaker())
+console.log(userCardMaker());
+
 /*
   List of LS Instructors Github username's:
     tetondan
