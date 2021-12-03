@@ -43,7 +43,8 @@ const followersArray = [
   'Timbobeek',
   'tetondan',
   'dustinmyers',
-  'justsml'
+  'justsml',
+  'am-stewart'
 ]
 
   for (let i = 0; i < followersArray.length; i++) {
@@ -117,7 +118,7 @@ function userCardMaker(obj) {
 
 return userCard
 }
-console.log(userCardMaker());
+
 
 /*
   List of LS Instructors Github username's:
