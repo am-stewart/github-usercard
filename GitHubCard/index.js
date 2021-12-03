@@ -5,15 +5,15 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
-axios.get('https://api.github.com/users/am-stewart')
+function getUser(username) {
+axios.get(`https://api.github.com/users/${username}`)
   .then(resp => {
     const user = userCardMaker(resp.data);
     document.querySelector('.cards').appendChild(user);
   }).catch(error => {
     console.log(error);
   })
-
+}
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -38,7 +38,18 @@ axios.get('https://api.github.com/users/am-stewart')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'ChristOscar',
+  'Timbobeek',
+  'tetondan',
+  'dustinmyers',
+  'justsml'
+]
+
+  for (let i = 0; i < followersArray.length; i++) {
+    getUser(followersArray[i]);
+    }
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -84,11 +95,12 @@ function userCardMaker(obj) {
   userImage.src = obj.avatar_url
   name.textContent = obj.name
   userName.textContent = obj.login
-  location.textContent = obj.location
+  location.textContent = `Location: ${obj.location}`
   profile.textContent = 'Profile: '
+  userLink.href = obj.html_url
   userLink.textContent = obj.html_url
-  followers.textContent = obj.followers
-  following.textContent = obj.following
+  followers.textContent = `Followers: ${obj.followers}`
+  following.textContent = `Following: ${obj.following}`
   bio.textContent = obj.bio
 
   //hierarchy
